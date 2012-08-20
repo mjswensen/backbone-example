@@ -11,7 +11,8 @@ var Heading = Backbone.Model.extend();
 /* Collections */
 
 var CalendarItems = Backbone.Collection.extend({
-  model: CalendarItem
+  model: CalendarItem,
+  url: 'api.php'
 });
 
 var Categories = Backbone.Collection.extend({
@@ -23,3 +24,4 @@ var Headings = Backbone.Collection.extend({
 });
 
 /* Views */
+
