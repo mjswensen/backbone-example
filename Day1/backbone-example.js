@@ -55,13 +55,31 @@ var CalendarView = Backbone.View.extend({
 
 var HeadingsRow = Backbone.View.extend({
 	tagName:'thead',
+	initialize:function(params){
+		this.categories = params.categories;
+	},
 	render:function() {
 		this.$el.append('<tr>');
+		var view = this;
+		this.collection.forEach(function(headingModel){
+			var headingView = new HeadingCell({model:headingModel, categories:this.categories});
+			view.$el.append(headingView.render().$el);
+		});
 		return this;
 	}
 });
 
-var HeadingCell = Backbone.View.extend({});
+var HeadingCell = Backbone.View.extend({
+	tagName:'td',
+	template: Handlebars.compile('<input type="text" value="{{title}}"/>'),
+	initialize:function(params){
+		this.categories = params.categories;
+	},
+	render:function(){
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
 
 var DateRow = Backbone.View.extend({
 	tagName:'tr'
