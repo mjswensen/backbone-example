@@ -25,3 +25,12 @@ var Headings = Backbone.Collection.extend({
 
 /* Views */
 
+var CalendarView = Backbone.View.extend({});
+
+var HeadingsRow = Backbone.View.extend({});
+
+var HeadingCell = Backbone.View.extend({});
+
+var DatesRow = Backbone.View.extend({});
+
+var DateCell = Backbone.View.extend({});
