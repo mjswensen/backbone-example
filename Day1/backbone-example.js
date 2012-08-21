@@ -111,8 +111,11 @@ var HeadingCell = Backbone.View.extend({
 	checkCategory:function(model){	
 		this.$('input[id*="'+model.get('id')+'"]').prop('checked', model.get('headingId') === this.model.get('id'));
 	},
-	assignCategory: function(){
-		
+	assignCategory: function(event){
+		var id = $(event.target).attr('id');
+		var modelId = id.substr(5); // Remove the #uid_
+		var model = this.categories.get(modelId);
+		model.set('headingId', this.model.get('id'));
 	}
 });
 
