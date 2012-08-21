@@ -16,7 +16,8 @@ var CalendarItems = Backbone.Collection.extend({
 });
 
 var Categories = Backbone.Collection.extend({
-  model: Category
+  model: Category,
+  comparator:function(model){return model.get('order');}
 });
 
 var Headings = Backbone.Collection.extend({
@@ -46,10 +47,9 @@ var CalendarView = Backbone.View.extend({
 		this.$('tbody').remove(); // Remove old view
 		
 		this.$el.append('<tbody>');
-		var today = Date.parse("8/1/2012");
-		for(var i = 0; i < 30; i++) {
-			today = today.addDays(1);
-			var dateView = new DateRow({date:today, headings:this.headings, calendarItems:this.calendarItems});
+		for(var i = 0; i < 31; i++) {
+			var today = Date.parse("8/1/2012").addDays(i);
+			var dateView = new DateRow({date:today, headings:this.headings, calendarItems:this.calendarItems, categories:this.categories});
 			this.$el.append(dateView.render().$el);
 		}
 	}
@@ -132,7 +132,12 @@ var HeadingCell = Backbone.View.extend({
 		var id = $(event.target).attr('id');
 		var modelId = id.substr(5); // Remove the #uid_
 		var model = this.categories.get(modelId);
-		model.set('headingId', this.model.get('id'));
+			
+		if($(event.target).is(':checked')){
+			model.set('headingId', this.model.get('id'));
+		} else {
+			model.set('headingId', null);
+		}
 	},
 	updateTitle:function(event){
 		this.model.set('title', $(event.target).val());
@@ -140,10 +145,77 @@ var HeadingCell = Backbone.View.extend({
 });
 
 var DateRow = Backbone.View.extend({
-	tagName:'tr'
+	tagName:'tr',
+	id:'calendarRow_',
+	template: Handlebars.compile(
+		'<td class="row-header" id="date_{{date_id}}">'
+			+'<span class="td_dateText"><strong>{{day}}</strong> - {{month_date}}</span>'
+		+'</td>'
+	),
+	initialize:function(params){		
+		this.date = params.date;
+		this.calendarItems = params.calendarItems;
+		this.headings = params.headings;
+		this.categories = params.categories;
+	},
+	render:function(){		
+		// Set the id to reflect the model
+		this.$el.attr('id', this.$el.attr('id')+this.date.toString("yyyy-MM-dd"));
+		
+		var data = {
+			date_id:this.date.toString("yyyy-MM-dd"),
+			day:this.date.toString("ddd"),
+			month_date:this.date.toString("MMM dd")
+		}
+		
+		this.$el.append(this.template(data));
+		
+		var view = this;
+		this.headings.forEach(function(model){
+			var items = new CalendarItems();
+			var headingCategories = view.categories.where({headingId:model.get('id')});
+			for(var i in headingCategories) {
+				var categoryItems = view.calendarItems.where({categoryId:headingCategories[i].get('id'), date:view.date.toString('yyyy-MM-dd')});
+				items.add(categoryItems);
+			}
+			var col = new DateCell({date:view.date, model:model, calendarItems:view.calendarItems, items:items, categories:view.categories});
+			view.$el.append(col.render().$el);
+		});
+		
+		return this;
+	}
 });
 
-var DateCell = Backbone.View.extend({});
+var DateCell = Backbone.View.extend({
+	template: Handlebars.compile(
+		'<td id="date_{{date_id}}" class="sortable">'
+			+'{{#each items}}'
+				+'<div id="uid_{{id}}" class="calendarItem" data-itemid="{{id}}">{{{text}}}</div>'
+			+'{{/each}}'
+		+'</td>'),
+	initialize:function(params){
+		this.date = params.date;
+		this.calendarItems = params.calendarItems;
+		this.items = params.items;
+		this.categories = params.categories;
+	},
+	events:{'click':'addItem'},
+	render:function(){
+		// Illustrates using setElement
+		this.setElement(this.template({date_id:this.date.toString("yyyy-MM-dd"), items:this.items.toJSON()}));
+		return this;
+	},
+	addItem:function(){
+		var colCategories = this.categories.where({headingId:this.model.get('id')});
+		if(colCategories.length > 0) { // Only create if there's a category to attach it to
+			var text = prompt("Text");
+			var item = new CalendarItem({date:this.date.toString("yyyy-MM-dd"), text:text, categoryId:colCategories[0].get('id')});
+			this.calendarItems.add(item);
+			this.items.add(item);
+			this.$el.replaceWith(this.template({date_id:this.date.toString("yyyy-MM-dd"), items:this.items.toJSON()}));
+		}
+	}
+});
 
 /* App */
 
@@ -197,10 +269,47 @@ var categoriesCollection = new Categories([
 console.log(categoriesCollection);
 
 // Create a new calendar items collection, and fetch its data from the services.
-var calendarItemsCollection = new CalendarItems();
-calendarItemsCollection.fetch({
+var calendarItemsCollection = new CalendarItems([
+	{
+		id:'item1',
+		categoryId:'cat3',
+		text:'Item 1',
+		date:'2012-08-01'
+	},
+	{
+		id:'item2',
+		categoryId:'cat1',
+		text:'Item 2',
+		date:'2012-08-14'
+	},
+	{
+		id:'item3',
+		categoryId:'cat4',
+		text:'Item 3',
+		date:'2012-08-05'
+	},
+	{
+		id:'item4',
+		categoryId:'cat2',
+		text:'Item 4',
+		date:'2012-08-21'
+	},
+	{
+		id:'item5',
+		categoryId:'cat1',
+		text:'Item 5',
+		date:'2012-08-29'
+	},
+	{
+		id:'item6',
+		categoryId:'cat4',
+		text:'Item 6',
+		date:'2012-08-05'
+	}
+]);
+/*calendarItemsCollection.fetch({
   async: false// halts execution until response is received.
-});
+});*/
 console.log(calendarItemsCollection);
 
 
