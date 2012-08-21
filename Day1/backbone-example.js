@@ -36,7 +36,7 @@ var CalendarView = Backbone.View.extend({
 		this.calendarItems = params.calendarItems;
 	},
 	render:function() {
-		this.$el.append('<thead>');
+		this.$el.append('<thead id="calendarHead">');
 		var headingsView = new HeadingsRow({collection:this.headings, categories:this.categories});
 		this.$('thead').append(headingsView.render().$el);		
 		this.redrawDates();
@@ -62,7 +62,7 @@ var HeadingsRow = Backbone.View.extend({
 	},
 	render:function() {
 		this.$el.append('<tr>');
-		this.$el.append('<td>Date</td>');
+		this.$el.append('<th id="dateColumn">Date</th>');
 		var view = this;
 		var headerNum = 0; // Allows checkboxes to have unique ids for labels "for" attribute
 		this.collection.forEach(function(headingModel){
@@ -75,14 +75,26 @@ var HeadingsRow = Backbone.View.extend({
 });
 
 var HeadingCell = Backbone.View.extend({
-	tagName:'td',
-	template: Handlebars.compile('<input type="text" value="{{title}}"/>'
-		+'{{#each categories}}'
-		+'<div class="inlineLabel">' 
-			+'<input type="checkbox" id="{{num}}uid_{{id}}" name="{{num}}uid_{{id}}">'        
-			+'<label id="{{num}}uid_{{id}}_label" for="{{num}}uid_{{id}}" >{{title}}</label>'
-		+'</div>'
-		+'{{/each}}'),
+	tagName:'th',
+	id:'uid_',
+	className:"calendarColumnHeader",	
+	template: Handlebars.compile(
+		'<div class="innerWrapper" style="width: 100%; position: relative; ">'
+			+'<div class="titleWrapper">'
+				+'<input type="text" id="columnHeading" name="columnHeading" placeholder="Column Title" '
+					+'value="{{title}}" class="columnHeadingTitle" size="30" maxlength="30" style="display: inline-block; ">'
+			+'</div>'
+			+'<div id="columnCategories" class="form" style="display: block; ">'
+				+'<label>Show Categories:</label>'  
+				+'{{#each categories}}'
+				+'<div class="inlineLabel ">' 
+					+'<input type="checkbox" id="{{num}}uid_{{id}}" name="{{num}}uid_{{id}}">'        
+					+'<label id="{{num}}uid_{{id}}_label" for="{{num}}uid_{{id}}" >{{title}}</label>'
+				+'</div>'    
+				+'{{/each}}'			
+			+'</div>'
+			+'<div class="condensedHeadingTitle" style="display: none; ">Column Title</div>'
+		+'</div>'),
 	initialize:function(params){
 		this.categories = params.categories;
 		this.instanceNum = params.instanceNum;
@@ -92,6 +104,9 @@ var HeadingCell = Backbone.View.extend({
 		'change input:checkbox':'assignCategory'
 	},
 	render:function(){
+		// Set the id to reflect the model
+		this.$el.attr('id', this.$el.attr('id')+this.model.get('id'));
+		
 		// Prepare data for template
 		var data = this.model.toJSON();
 		var categories = this.categories.toJSON();
@@ -102,6 +117,8 @@ var HeadingCell = Backbone.View.extend({
 		$.extend(data, {categories:categories});
 		
 		this.$el.html(this.template($.extend(data)));
+		
+		// Check categories that belong to this header
 		var view = this;
 		this.categories.forEach(function(model){
 			view.checkCategory(model);
