@@ -61,10 +61,9 @@ var HeadingsRow = Backbone.View.extend({
 		this.categories = params.categories;
 	},
 	render:function() {
-		this.$el.append('<tr>');
 		this.$el.append('<th id="dateColumn">Date</th>');
 		var view = this;
-		var headerNum = 0; // Allows checkboxes to have unique ids for labels "for" attribute
+		var headerNum = 0; // Allows checkboxes to have unique ids for labels' "for" attribute
 		this.collection.forEach(function(headingModel){
 			var headingView = new HeadingCell({model:headingModel, categories:view.categories, instanceNum:headerNum});
 			view.$el.append(headingView.render().$el);
@@ -101,7 +100,8 @@ var HeadingCell = Backbone.View.extend({
 		this.categories.on('change:headingId', this.checkCategory, this);
 	},
 	events:{
-		'change input:checkbox':'assignCategory'
+		'change input:checkbox':'assignCategory',
+		'keyup input:text':'updateTitle'
 	},
 	render:function(){
 		// Set the id to reflect the model
@@ -133,6 +133,9 @@ var HeadingCell = Backbone.View.extend({
 		var modelId = id.substr(5); // Remove the #uid_
 		var model = this.categories.get(modelId);
 		model.set('headingId', this.model.get('id'));
+	},
+	updateTitle:function(event){
+		this.model.set('title', $(event.target).val());
 	}
 });
 
