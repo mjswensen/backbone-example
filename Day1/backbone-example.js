@@ -20,7 +20,8 @@ var Categories = Backbone.Collection.extend({
 });
 
 var Headings = Backbone.Collection.extend({
-  model: Heading
+  model: Heading,
+  comparator:function(model){return model.get('order');}
 });
 
 /* Views */
@@ -35,8 +36,9 @@ var CalendarView = Backbone.View.extend({
 		this.calendarItems = params.calendarItems;
 	},
 	render:function() {
+		this.$el.append('<thead>');
 		var headingsView = new HeadingsRow({collection:this.headings, categories:this.categories});
-		this.$el.append(headingsView.render().$el);		
+		this.$('thead').append(headingsView.render().$el);		
 		this.redrawDates();
 		return this;
 	},
@@ -54,16 +56,19 @@ var CalendarView = Backbone.View.extend({
 });
 
 var HeadingsRow = Backbone.View.extend({
-	tagName:'thead',
+	tagName:'tr',
 	initialize:function(params){
 		this.categories = params.categories;
 	},
 	render:function() {
 		this.$el.append('<tr>');
+		this.$el.append('<td>Date</td>');
 		var view = this;
+		var headerNum = 0; // Allows checkboxes to have unique ids for labels "for" attribute
 		this.collection.forEach(function(headingModel){
-			var headingView = new HeadingCell({model:headingModel, categories:this.categories});
+			var headingView = new HeadingCell({model:headingModel, categories:view.categories, instanceNum:headerNum});
 			view.$el.append(headingView.render().$el);
+			headerNum++;
 		});
 		return this;
 	}
@@ -71,13 +76,43 @@ var HeadingsRow = Backbone.View.extend({
 
 var HeadingCell = Backbone.View.extend({
 	tagName:'td',
-	template: Handlebars.compile('<input type="text" value="{{title}}"/>'),
+	template: Handlebars.compile('<input type="text" value="{{title}}"/>'
+		+'{{#each categories}}'
+		+'<div class="inlineLabel">' 
+			+'<input type="checkbox" id="{{num}}uid_{{id}}" name="{{num}}uid_{{id}}">'        
+			+'<label id="{{num}}uid_{{id}}_label" for="{{num}}uid_{{id}}" >{{title}}</label>'
+		+'</div>'
+		+'{{/each}}'),
 	initialize:function(params){
 		this.categories = params.categories;
+		this.instanceNum = params.instanceNum;
+		this.categories.on('change:headingId', this.checkCategory, this);
+	},
+	events:{
+		'change input:checkbox':'assignCategory'
 	},
 	render:function(){
-		this.$el.html(this.template(this.model.toJSON()));
+		// Prepare data for template
+		var data = this.model.toJSON();
+		var categories = this.categories.toJSON();
+		for(var i in categories) {
+			// Pass header number to the category data so it can be used in {{#each}}
+			categories[i]['num'] = this.instanceNum;
+		}
+		$.extend(data, {categories:categories});
+		
+		this.$el.html(this.template($.extend(data)));
+		var view = this;
+		this.categories.forEach(function(model){
+			view.checkCategory(model);
+		});
 		return this;
+	},
+	checkCategory:function(model){	
+		this.$('input[id*="'+model.get('id')+'"]').prop('checked', model.get('headingId') === this.model.get('id'));
+	},
+	assignCategory: function(){
+		
 	}
 });
 
