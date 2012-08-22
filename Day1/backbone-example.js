@@ -287,47 +287,10 @@ var categoriesCollection = new Categories([
 console.log(categoriesCollection);
 
 // Create a new calendar items collection, and fetch its data from the services.
-var calendarItemsCollection = new CalendarItems([
-	{
-		id:'item1',
-		categoryId:'cat3',
-		text:'Item 1',
-		date:'2012-08-01'
-	},
-	{
-		id:'item2',
-		categoryId:'cat1',
-		text:'Item 2',
-		date:'2012-08-14'
-	},
-	{
-		id:'item3',
-		categoryId:'cat4',
-		text:'Item 3',
-		date:'2012-08-05'
-	},
-	{
-		id:'item4',
-		categoryId:'cat2',
-		text:'Item 4',
-		date:'2012-08-21'
-	},
-	{
-		id:'item5',
-		categoryId:'cat1',
-		text:'Item 5',
-		date:'2012-08-29'
-	},
-	{
-		id:'item6',
-		categoryId:'cat4',
-		text:'Item 6',
-		date:'2012-08-05'
-	}
-]);
-/*calendarItemsCollection.fetch({
+var calendarItemsCollection = new CalendarItems();
+calendarItemsCollection.fetch({
   async: false// halts execution until response is received.
-});*/
+});
 console.log(calendarItemsCollection);
 
 // initialize the main view with the data
