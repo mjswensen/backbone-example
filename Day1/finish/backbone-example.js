@@ -1,10 +1,17 @@
 /* Models */
 
-var CalendarItem = Backbone.Model.extend();
+var CalendarItem = Backbone.Model.extend({});
 
 var Category = Backbone.Model.extend();
 
-var Heading = Backbone.Model.extend();
+var Heading = Backbone.Model.extend({
+	validate:function(attrs) {
+		// Verify that the title is not empty
+		if(attrs.title.length === 0) {
+			return "Title cannot be empty";
+		}
+	}
+});
 
 /* Collections */
 
@@ -149,7 +156,12 @@ var HeadingCell = Backbone.View.extend({
 		}
 	},
 	updateTitle:function(event){
-		this.model.set('title', $(event.target).val());
+		// Set returns false if validation fails, so we check it.  Note: the model will not be set with the invalid value!
+		if(!this.model.set('title', $(event.target).val())) {
+			$(event.target).addClass('invalid');
+		} else {			
+			$(event.target).removeClass('invalid');
+		}
 	}
 });
 
