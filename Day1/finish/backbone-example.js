@@ -237,8 +237,8 @@ var DateCell = Backbone.View.extend({
 
 /* App */
 
-// Create a new headings collection, with data.
-var headingsCollection = new Headings([
+// hard coded data
+var headingsData = [
   {
     id: 'col2',
     title: 'Column 2',
@@ -254,11 +254,9 @@ var headingsCollection = new Headings([
     title: 'Column 3',
     order: 3
   }
-]);
-console.log(headingsCollection);
+];
 
-// Create a new categories collection, with data.
-var categoriesCollection = new Categories([
+var categoryData = [
   {
     id: 'cat1',
     headingId: 'col2',
@@ -283,7 +281,14 @@ var categoriesCollection = new Categories([
     title: 'Other',
     order: 1
   }
-]);
+];
+
+// Create a new headings collection, with data.
+var headingsCollection = new Headings(headingsData);
+console.log(headingsCollection);
+
+// Create a new categories collection, with data.
+var categoriesCollection = new Categories(categoryData);
 console.log(categoriesCollection);
 
 // Create a new calendar items collection, and fetch its data from the services.
