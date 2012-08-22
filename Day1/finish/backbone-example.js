@@ -279,19 +279,19 @@ var categoryData = [
     id: 'cat2',
     headingId: 'col2',
     title: 'Reading Assignments',
-    order: 1
+    order: 3
   },
   {
     id: 'cat3',
     headingId: 'col1',
     title: 'Exams',
-    order: 1
+    order: 2
   },
   {
     id: 'cat4',
     headingId: 'col3',
     title: 'Other',
-    order: 1
+    order: 4
   }
 ];
 
