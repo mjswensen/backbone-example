@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/index.html -->
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths ready" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Introduction to Backbone.js by littleiffel for JSLuxembourg</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/core/deck.core.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/extensions/hash/deck.hash.css">
+
+	<!-- include code mirror default css and the theme you want. -->
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/mystyle.css">
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/themes/default.css">
+
+	<!-- Theme CSS files (menu swaps these out) -->
+	<link rel="stylesheet" id="transition-theme-link" href="http://williambrownstreet.net/work/backbonejs.slides/deck.js/themes/transition/horizontal-slide.css">
+	
+	<link rel="stylesheet" href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/introduction.css">	
+	
+	<script src="./index_files/modernizr.custom.js"></script>
+</head>
+
+<body>
+	<article class="deck-container on-slide-0 on-slide-title-slide">
+		<!-- Begin slides -->
+		<section class="slide deck-current" id="title-slide">
+			<h1>Introduction to Backbone.js</h1>
+			<h3>
+				by <a href="https://www.twitter.com/#!/littleiffel">@littleiffel</a> for @JSLuxembourg (<a href="http://www.json.lu/">http://www.json.lu</a>) April, 2012
+			</h3>
+		</section>
+
+      <section class="slide deck-next" id="about-me">
+         <h2>about me</h2><p><a href="http://www.unifr.ch/">unifr.ch</a>,<a href="http://liip.ch/">liip.ch</a>, <a href="http://eirenesuisse.ch/">eirenesuisse.ch</a>, <a href="http://www.oashi.com/">oashi.com</a>, <a href="http://www.williambrownstreet.net/blog">www.williambrownstreet.net</a>
+         <img src="./index_files/me.png" alt="about me">
+      </p></section>
+
+		<section class="slide deck-after" id="overview">
+			<h2>Backbone.js</h2>
+			<ul>
+				<li>
+					<h3>MVC Framework</h3>
+					<blockquote cite="http://www.wikipedia.org.org/">
+						<p>“The goal of MVC is to simplify the architecture by decoupling models and views, and to make source code more flexible and maintainable.”</p>
+						<p><cite><a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">http://www.wikipedia.org</a></cite></p>
+					</blockquote>
+				</li>
+				<li>
+					<h3>Dependencies</h3>
+					<p>underscore.js, jQuery/Zepto, json2.js</p>
+				</li>
+				<li>
+					<h3>Lightweight</h3>
+					<p>Only (5,6kb)</p>
+				</li>
+            <li>
+               <h3>MIT software license</h3>
+            </li>
+            <li><h3>Get Backbone and documentation</h3>
+               <a href="http://documentcloud.github.com/backbone">http://documentcloud.github.com/backbone</a>
+            </li>
+			</ul>
+		</section>
+
+		<section class="slide deck-after" id="classical-mvc">
+			<h2>classical MVC</h2>
+			<img src="./index_files/mvc.png" alt="Classical">
+			<p>image source <cite><a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">http://www.wikipedia.org</a></cite></p>
+		</section>
+
+		<section class="slide deck-after" id="backbonejs-mvc">
+			<h2>backbone.js - MVC</h2>
+			<img src="./index_files/mvc-backbone.png" height="60%" alt="MVC Backbone">
+		</section>
+
+		<section class="slide deck-after" id="why-backbone">
+			<h2>why use Backbone.js?</h2>
+			<ul>
+				<li><h3>Create web/mobile apps that are strucutred and organized</h3></li>
+				<li><h3>Move away from misusing jQuery to store everything in the DOM</h3></li>
+				<li><h3>Move towards a Client/Server architecture</h3></li>
+				<li><h3>Server sends data (as JSON) without the View (Html/CSS), Client is responsible for the View</h3></li>
+            <li><h3>Many resources available, great community</h3></li>
+            <li><h3>Many applications(trello.com, linkedin,...) in the wild</h3></li>
+			</ul>
+			<pre><code> CRUD operations to HTTP operations with REST 
+
+		    Collection Operations
+		        HTTP/GET=Read
+		        HTTP/POST=Create
+
+		    Model Operations
+		        HTTP/PUT=Update
+		        HTTP/DELETE=Delete</code></pre>
+		</section>
+
+      <!-- Begin slides -->
+      <section class="slide deck-after" id="sample-app">
+         <h1>Sample App (Todo App)</h1>
+         <p>all credits go to <a href="http://jgn.me/">Jérôme Gravel-Niquet</a></p>
+         <p>Example with complete source code annotations <a href="http://documentcloud.github.com/backbone/docs/todos.html">here</a></p>
+      </section>
+
+
+		<!-- Begin slides -->
+		<section class="slide deck-after" id="title-model">
+			<h1>Backbone.Model</h1>
+		</section>
+
+		<section class="slide deck-after" id="backbone-model1">
+			<h2>Backbone.Model</h2>
+			<ul>
+				<li><h3>Single Data Entity</h3></li>
+				<li><h3>Usually bound to a View</h3></li>
+				<li><h3>Models use Backbone.Sync to persist to a storage</h3>
+					<p>Either html5 localStorage or/and a remote Server</p>
+				</li>
+			</ul>
+			<div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true" globals="Backbone">// Simple Model Creation
+var Todo = Backbone.Model.extend({
+});
+// Create an instance of the Model Todo
+var myTodo = new Todo({
+  title:'Wash ears',
+  description:'Dont forget the ears'
+});
+
+myTodo.set({
+  'title': 'Wash right and left ears'
+}); // trigger change
+console.log(myTodo.get('title'));</textarea></div>
+		</section>
+
+      <section class="slide deck-after" id="backbone-model-2">
+         <h2>Backbone.Model</h2>
+         <ul>
+            <li><h3>On save the object gets a unique id</h3></li>
+            <li><h3>Storage of Model is independant of Model Implementation</h3>
+               <p>either use url: for remote, or localStorage addon</p></li>
+         </ul>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true" globals="Backbone, Store">// Model Creation with defaults
+var Todo = Backbone.Model.extend({
+  //urlRoot:'/api/todos', // Sync to remote server, remove backbone-localStorage.js
+  //localStorage: new Store("todos"), // Sync to html5 localStorage
+  defaults: {
+       title:'new todo...',
+       description:'missing...',
+       done:false
+  }
+});
+
+var myTodo = new Todo({});
+
+console.log("Before save id:"+myTodo.get('id')); // Unique Id from Server
+console.log("Before save cid:"+myTodo.cid); // Client side id
+//myTodo.save(); // trigger sync
+
+console.log(myTodo.get('title'));
+console.log("After save id:"+myTodo.get('id'));
+console.log("After save cid:"+myTodo.cid);</textarea></div>
+      </section>
+
+      <section class="slide deck-after" id="sample-app-model">
+         <h2>Sample App Todo.Model</h2>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store">// Our basic **Todo** model has `text`, `order`, and `done` attributes.
+var Todo = Backbone.Model.extend({
+
+ // Default attributes for a todo item.
+ defaults: function() {
+   return {
+     done:  false,
+     sortby: Todos.nextOrder() // Will see soon where Todos comes from
+   };
+ },
+
+ // Toggle the `done` state of this todo item.
+ toggle: function() {
+   this.save({done: !this.get("done")});
+ }
+});
+</textarea></div>
+      </section>
+
+		<!-- Begin slides -->
+		<section class="slide deck-after" id="title-collection">
+			<h1>Backbone.Collection</h1>
+		</section>
+
+		<section class="slide deck-after" id="collection">
+			<h2>Backbone.Collection</h2>
+			<ul>
+				<li><h3>Backbone.Collection stores a set of models of the same typ</h3>
+				</li>
+				<li>
+					<h3>Can have a REST point defined</h3>
+					<p>url: '/todos' </p>
+               <ul>
+                  <li><b>create</b> a new Model in the collection, calls HTTP POST /todos </li>
+					   <li><b>delete</b> a Model from the collection, calls HTTP DELETE /todos/model.id </li>
+					   <li><b>edit</b> a Model in the collection, calls HTTP PUT /todos/model.id </li>
+					   <li><b>fetch</b> all Models from the collection, calls HTTP GET /todos </li>
+               </ul>
+				</li>
+			</ul>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true" globals="Backbone">// Collection Creation with model and url
+var Todo = Backbone.Model.extend({}); // Model
+
+var Todos = Backbone.Collection.extend({
+  model: Todo,
+  url: "/todos"
+});
+
+var todos = new Todos();
+todos.fetch(); // Trigger reset Event
+</textarea></div>
+		</section>
+
+      <section class="slide deck-after" id="collection-add-model">
+         <h2>Backbone.Collection.create</h2>
+         <ul>
+            <li><h3>Create New model and add to Collection</h3>
+                        <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true" globals="Backbone, Store">// Collection Creation with model and url
+var Todo = Backbone.Model.extend({}); // Model
+
+var Todos = Backbone.Collection.extend({
+  model: Todo,
+  localStorage: new Store("todos")
+});
+
+var todos = new Todos();
+todos.create({title:'Wash ears', done:false});
+console.log(todos.length);
+
+var myTodo = new Todo({title:'wash hands', done:false});
+todos.add(myTodo);
+console.log(todos.length);
+</textarea></div>
+         </li></ul>
+      </section>
+
+      <section class="slide deck-after" id="sample-app-collection">
+         <h2>Sample App Todos.Collection</h2>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store">// The collection of todos is backed by *localStorage* instead of a remote server.
+var TodoList = Backbone.Collection.extend({
+
+ // Reference to this collection's model.
+ model: Todo,
+ url: '/todos', // Use for remote server connection
+ //localStorage: new Store("todos",) // Use for local html5 data storage
+
+ // Filter down the list of all todo items that are finished.
+ done: function() {
+   return this.filter(function(todo){ return todo.get('done'); });
+ },
+
+ // Filter down the list to only todo items that are still not finished.
+ remaining: function() {
+   return this.without.apply(this, this.done());
+ },
+
+ // We keep the Todos in sequential order, despite being saved by unordered
+ // GUID in the database. This generates the next order number for new items.
+ nextOrder: function() {
+   if (!this.length) return 1;
+   return this.last().get('sortby') + 1;
+ },
+
+ // Todos are sorted by their original insertion order.
+ comparator: function(todo) {
+   return todo.get('sortby');
+ }
+
+});
+</textarea></div>
+      </section>
+
+      <!-- Begin slides -->
+      <section class="slide deck-after" id="title-events">
+         <h1>Backbone.Events</h1>
+      </section>
+
+      <section class="slide deck-after" id="events-add">
+         <h2>Backbone.Events binding</h2>
+         <ul>
+            <li><h3>Events are triggered on changes/destroy on Backbone Objects</h3>
+            </li>
+            <li><h3>Events can be bound to Model/Collection (for example)</h3></li>
+               <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true" globals="Backbone, Store">// Collection Creation with Event binding
+var Todo = Backbone.Model.extend({
+  initialize:function(){
+   this.on('change', this.changeMe);
+  },
+  changeMe:function(){
+    console.log('I have been changed');
+  }
+}); // Model
+var Todos = Backbone.Collection.extend({
+  model: Todo,
+  localStorage: new Store("todos"),
+  initialize: function(){
+    this.on('add', this.addOne);
+  },
+  addOne: function(newTodo){
+   console.log('Adding new Todo with title'+newTodo.get('title'));
+  }
+});
+var todos = new Todos();
+todos.create({title:'Wash ears', done:false});
+console.log(todos.length);
+var myTodo = new Todo({title:'wash hands', done:false});
+todos.add(myTodo);
+console.log(todos.length);
+               </textarea></div>
+         </ul>
+      </section>
+
+      <section class="slide deck-after" id="events-overview">
+         <h2>Backbone.Events Overview</h2>
+         <ul>
+            <li><h3>Events can be bound any object</h3>
+               <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store">// Collection Creation with Event binding
+todo.on('EVENT', function(){}, [context]); // Bind event to object
+todo.on('change:done', function(model){/* code here */}, this); 
+todo.on('destroy', this.remove, this); //On deleting Object
+todo.off('change'); // Remove Event Listener from object
+
+todos.on('reset', this.addAll, this); // Reset is fired after fetch
+todos.on('add', this.addone, this); // Reset is fired after fetch
+todos.bind('all', this.render); // Bind is an alias for on, all listens on all events
+               </textarea></div>
+         </li></ul>
+      </section>
+
+		<section class="slide deck-after" id="title-view">
+			<h1>Backbone.View</h1>
+		</section>
+
+		<section class="slide deck-after" id="view-intro">
+			<h2>Backbone.View</h2>
+			<ul>
+            <li>
+					<h3>Manipulates the DOM</h3>
+				</li>
+				<li>
+					<h3>Delegates DOM Events</h3>
+				</li>
+				<li>
+					<h3>Bound to either a Model or a Collection</h3>
+				</li>
+			</ul>
+         <img src="./index_files/collectioview.png" height="50%" alt="Collection View">
+		</section>
+
+      <section class="slide deck-after" id="view-code">
+         <h2>Backbone.View Example</h2>
+            <ul>
+               <li><h3>All views have a DOM element at all times (the <b>View.el</b> property)</h3>
+                  <p>View.$el is a cached jQuery/Zepto object of the view's el element</p>
+               </li>
+            </ul>
+            <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store, $">// View for TodoCollection is a list ul
+var TodosView = Backbone.View.extend({
+  tagName: 'ul',
+  className: 'todos-list',
+  id: 'main-container',
+});
+var todoView = new TodosView();
+console.log(todoView.el);
+            </textarea></div>
+      </section>
+
+      <section class="slide deck-after" id="view-code-complex">
+         <h2>Backbone.View Example with Events</h2>
+            <ul>
+               <li><h3>Constructor of View with Event binding and render method<p></p>
+               </h3></li>
+            </ul>
+            <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store, $">// View for TodoCollection is a list ul
+var TodoView = Backbone.View.extend({
+  //... is a list tag.
+  tagName:  "li",
+
+  // The DOM events specific to an item.
+  events: {
+    "click .check"              : "toggleDone" // Call function from view
+  },
+
+  // The TodoView listens for changes to its model, re-rendering.
+  initialize: function() {
+    this.model.bind('change', this.render, this);
+    this.model.bind('destroy', this.remove, this);
+  },
+
+  // Re-render the contents of the todo item.
+  render: function() {
+    this.$el.text(this.model.get('title')); // Just render the title of the Todo
+    return this;
+  },
+
+  toggleDone: function(){/*...*/}
+});
+var Todo = Backbone.Model.extend({});
+var myTodo = new Todo({title:'Wash Ears'});
+var todoView = new TodoView({model:myTodo});
+console.log(todoView.el); // Log the View element
+console.log(todoView.render()); //Log render out-put</textarea></div>
+      </section>
+
+        
+		<section class="slide deck-after" id="title-templates">
+			<h2>Templates</h2>
+         <ul>
+            <li><h3>Any template can be used</h3>
+               <p>...from underscore.js</p>
+            </li>
+            <li>
+               <h3><a href="http://mustache.github.com/">Mustache</a>, <a href="http://api.jquery.com/jquery.tmpl/">jquery.Tmpl()</a></h3>
+            </li>
+         </ul>
+		    <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store, $">// Template with Mustache
+ &lt;script type="text/template" id="item-template"&gt;
+   &lt;div class="todo {{ done ? 'done' : '' }}"&gt;
+     &lt;div class="display"&gt;
+       &lt;input class="check" type="checkbox" {{ done ? 'checked="checked"' : '' }} /&gt;
+       &lt;div class="todo-text"&gt;&lt;/div&gt;
+       &lt;span class="todo-destroy"&gt;&lt;/span&gt;
+     &lt;/div&gt;
+     &lt;div class="edit"&gt;templ
+       &lt;input class="todo-input" type="text" value="" /&gt;
+     &lt;/div&gt;
+   &lt;/div&gt;
+ &lt;/script&gt;
+            </textarea></div>
+		</section>
+
+      <section class="slide deck-after" id="cache-template-in-view">
+         <h2>Caching Template</h2>
+         <ul>
+               <li><h3>The template instance can be cached in the View</h3></li>
+            </ul>
+<div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store, $">// Caching template instance in the View using underscore.js 
+var TodoView = Backbone.View.extend({
+
+  // Cache the template function for a single item.
+  template: _.template( $('#item-template').html() ),
+
+  render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+   }
+
+  /*....*/
+});
+         </textarea></div>
+      </section>
+
+      <section class="slide deck-after" id="sample-app-view-model">
+         <h2>Sample App Todo.Model</h2>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store">var TodoView = Backbone.View.extend({
+    //... is a list tag.
+    tagName:  "li",
+    // Cache the template function for a single item.
+    template: _.template($('#item-template').html()),
+    // The DOM events specific to an item.
+    events: {
+      "click .check"              : "toggleDone",
+      "dblclick div.todo-text"    : "edit",
+      "click span.todo-destroy"   : "clear",
+      "keypress .todo-input"      : "updateOnEnter"
+    },
+
+    // The TodoView listens for changes to its model, re-rendering.
+    initialize: function() {
+      this.model.bind('change', this.render, this);
+      this.model.bind('destroy', this.remove, this);
+    },
+
+    // Re-render the contents of the todo item.
+    render: function() {
+      $(this.el).html(this.template(this.model.toJSON()));
+      this.setText();
+      return this;
+    },
+
+    // To avoid XSS (not that it would be harmful in this particular app),
+    // we use `jQuery.text` to set the contents of the todo item.
+    setText: function() {},
+
+    // Toggle the `"done"` state of the model.
+    toggleDone: function() {},
+
+    // Switch this view into `"editing"` mode, displaying the input field.
+    edit: function() {},
+
+    // Close the `"editing"` mode, saving changes to the todo.
+    close: function() {},
+
+    // If you hit `enter`, we're through editing the item.
+    updateOnEnter: function(e) {},
+
+    // Remove this view from the DOM.
+    remove: function() {
+      $(this.el).remove();
+    },
+
+    // Remove the item, destroy the model.
+    clear: function() {
+      this.model.destroy();
+    }
+
+  });
+</textarea></div>
+      </section>
+
+            <section class="slide deck-after" id="sample-app-view-collection">
+         <h2>Sample App Todos.Collection</h2>
+         <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store">// Our overall **AppView** is the top-level piece of UI.
+  var AppView = Backbone.View.extend({
+    // Instead of generating a new element, bind to the existing skeleton of
+    // the App already present in the HTML.
+    el: $("#todoapp"),
+
+    // Our template for the line of statistics at the bottom of the app.
+    statsTemplate: _.template($('#stats-template').html()),
+
+    // Delegated events for creating new items, and clearing completed ones.
+    events: {
+      "keypress #new-todo":  "createOnEnter",
+      "keyup #new-todo":     "showTooltip",
+      "click .todo-clear a": "clearCompleted"
+    },
+
+    initialize: function() {
+      this.input    = this.$("#new-todo");
+      Todos.bind('add',   this.addOne, this);
+      Todos.bind('reset', this.addAll, this);
+      Todos.bind('all',   this.render, this);
+      Todos.fetch();
+    },
+
+    render: function() {
+      this.$('#todo-stats').html(this.statsTemplate({
+        total:      Todos.length,
+        done:       Todos.done().length,
+        remaining:  Todos.remaining().length
+      }));
+    },
+
+    // Add a single todo item to the list by creating a view for it, and
+    // appending its element to the `&lt;ul&gt;`.
+    addOne: function(todo) {
+      var view = new TodoView({model: todo});
+      $("#todo-list").append(view.render().el);
+    },
+
+    // Add all items in the **Todos** collection at once.
+    addAll: function() {
+      Todos.each(this.addOne);
+    },
+
+    // If you hit return in the main input field, and there is text to save,
+    // create new **Todo** model persisting it to *localStorage*.
+    createOnEnter: function(e) {
+      var text = this.input.val();
+      if (!text || e.keyCode != 13) return;
+      Todos.create({text: text});
+      this.input.val('');
+    },
+
+    // Clear all done todo items, destroying their models.
+    clearCompleted: function() {
+      _.each(Todos.done(), function(todo){ todo.destroy(); });
+      return false;
+    },
+
+    // Lazily show the tooltip that tells you to press `enter` to save
+    // a new todo item, after one second.
+    showTooltip: function(e) {
+      var tooltip = this.$(".ui-tooltip-top");
+      var val = this.input.val();
+      tooltip.fadeOut();
+      if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
+      if (val == '' || val == this.input.attr('placeholder')) return;
+      var show = function(){ tooltip.show().fadeIn(); };
+      this.tooltipTimeout = _.delay(show, 1000);
+    }
+
+  });
+</textarea></div>
+      </section>
+
+		<section class="slide deck-after" id="title-router">
+			<h1>Backbone.Router</h1>
+		</section>
+
+      <section class="slide deck-after" id="router-intro">
+         <h2>Backbone.Router</h2>
+         <ul>
+            <li><h3>Maps urls to functions</h3>
+            </li>
+            <li><h3>Enables hashbang URLs</h3>
+               <p> www.myapp.com/#!/todos/get/123, see <a href="http://www.twitter.com/#!/littleiffel">twitter.com/#!/littleiffel</a></p>
+            </li>
+            <li><h3>Enables Browser History/Bookmarking</h3>
+            </li>
+         </ul>
+      </section>
+
+      <section class="slide deck-after" id="router-code">
+         <h2>Backbone.Router Example</h2>
+            <div><textarea id="code" name="code" class="code" mode="javascript" style="display: none;" globals="Backbone, Store, $">// View for TodoCollection is a list ul
+var AppRouter = Backbone.Router.extend({
+ routes: {
+   "":     "index",
+   "/add": "addTodo",
+   "/show/:id": "showTodo",
+
+ },
+ index: function () { console.log("index"); },
+ addTodo: function () { console.log("addTodo"); },
+ showTodo: function(id){console.log("showing Todo id:"+id); }
+});
+            </textarea></div>
+      </section>  
+
+      <section class="slide deck-after" id="make-app-mobile">
+         <h2>Mobile App Creation</h2>
+         <p>We almost got a mobile app with
+            </p><ul>
+               <li>localStorage</li>
+               <li>But....runs only Browser</li>
+            </ul>
+         <p></p>
+         <ul>
+            <li><h3>Use localStorage</h3>
+               <p>Store the application data in the borwser. Up to 5MB in a large "Cookie", <a href="http://diveintohtml5.info/storage.html">check here</a></p>
+            </li>
+            <li><h3>Cache Manifest</h3>
+               <p>Store the application files (html/css/js) in Browser Cache to work in Offline Modus, Cache the application <a href="http://www.html5rocks.com/en/tutorials/appcache/beginner/">check here</a></p>
+            </li>
+         </ul>
+         <p> What you call this a mobile app?</p>
+         <ul>
+            <li>Well, just use <a href="http://www.appcelerator.com/">Titanium Appcelerator</a>, <a href="http://phonegap.com/">PhoneGap</a>, <a href="http://xuijs.com/">XUI</a>, <a href="http://cappuccino.org/">Cappucino</a>,.....to convert THIS to a "native" app for iPhone, Android $ Co.
+            </li>
+            <li>Examples: LinkedIn <a href="http://itunes.apple.com/us/app/linkedin/id288429040?mt=8">iPhone</a>, <a href="https://play.google.com/store/apps/details?id=com.linkedin.android&hl=de">Android</a>,...</li>
+         </ul>
+      </section>   
+
+
+
+      <section class="slide deck-after" id="demo">
+         <h1>Mobile HTML5 Offline Backbone Demo Todo App</h1>
+      </section>   
+
+      <section class="slide deck-after" id="demo-more">
+         <h2>Mobile HTML5 Offline Backbone Demo Todo App</h2>
+         <ul>
+            <li><h3>Have a Look at the files:</h3></li>
+            <li>index.html</li>
+            <li>todos.js</li>
+         </ul>
+      </section>   
+
+      <section class="slide deck-after" id="backbone-cons">
+         <h2>So all is shiny with backbone.js?</h2>
+         <ul>
+            <li><h3>There are many alternatives to backbone.js</h3>
+               <a href="http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/"> Top 10 JS MVC Frameworks</a>
+            </li><li><h3>Pros</h3>
+               <p>extend, Huge Community, plenty of resources/tutorials, lightweight, underscore.js, many "real-world" examples</p></li>
+            <li><h3>Cons</h3>
+               <p>it's a framework -&gt; either you like it or not, for the rest go find out for yourself...</p></li>
+         </ul>
+      </section>  
+		
+      <section class="slide deck-after" id="thank-you">
+         <h1>Questions?</h1>
+         Thanks for your patience and attention
+      </section>   
+
+      <section class="slide deck-after" id="resources">
+         <h2>Resources</h2>
+         <ul>
+            <li><a href="http://documentcloud.github.com/backbone">Backbone.js</a></li>
+            <li><a href="http://documentcloud.github.com/backbone/examples/todos/index.html">Sample Todo App on Backbone.js</a></li>
+            <li><a href="http://www.slideshare.net/ronreiter/writing-html5-mobile-web-apps-using-backbonejs">Slides on HTML5 Moblie Apps from Any.Do developer</a></li>
+            <li><a href="http://www.slideshare.net/caillou/jsgeneve-backbonejs">A NICE presentation on Backbone.js</a></li>
+            <li><a href="https://github.com/addyosmani/backbone-fundamentals/">Backbone.js Fundamentals Free EPub</a></li>
+            <li><a href="https://github.com/thomasdavis/backboneboilerplate">Backbone Boilerplate - Getting Started quickly with development</a></li>
+            <li><a href="http://backbonetutorials.com/">Backbone Tutorials</a></li>
+         </ul>
+      </section>   
+
+		<a href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/index.html#" class="deck-prev-link deck-nav-disabled" title="Previous">←</a>
+		<a href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/index.html#about-me" class="deck-next-link" title="Next">→</a>
+
+		<p class="deck-status">
+			<span class="deck-status-current">1</span>
+			/
+			<span class="deck-status-total">35</span>
+		</p>
+
+		<form action="http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/" method="get" class="goto-form">
+			<label for="goto-slide">Go to slide:</label>
+			<input type="number" name="slidenum" id="goto-slide">
+			<input type="submit" value="Go">
+		</form>
+
+		<a href="http://williambrownstreet.net/work/backbonejs.slides/codemirror/introduction/" title="Permalink to this slide" class="deck-permalink">#</a>
+	</article>
+
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>-->
+	<script>window.jQuery || document.write('<script src="../../deck.js/jquery-1.7.min.js"><\/script>')</script><script src="./index_files/jquery-1.7.min.js"></script>
+	<script src="./index_files/underscore-min.js"></script>
+	<script src="./index_files/backbone.js"></script>
+  <script src="./index_files/backbone-localstorage.js"></script> 
+
+	<!-- Deck Core and extensions -->
+	<script src="./index_files/deck.core.js"></script>
+	<script src="./index_files/deck.menu.js"></script>
+	<script src="./index_files/deck.goto.js"></script>
+	<script src="./index_files/deck.status.js"></script>
+	<script src="./index_files/deck.navigation.js"></script>
+	<script src="./index_files/deck.hash.js"></script>
+  
+  <!-- include the base codemirror code. -->
+  <script src="./index_files/codemirror.js"></script>
+	
+	<!-- include the code syntax you want to highlight -->
+	<!-- javascript -->
+  <script src="./index_files/javascript.js"></script>
+
+  <!-- html mode : note code miror requires xml, css and javasript modes for html rendering -->
+  <script src="./index_files/xml.js"></script>
+  <script src="./index_files/css.js"></script>
+  <script src="./index_files/htmlmixed.js"></script>
+  
+	<script src="./index_files/deck.codemirror.js"></script>
+	
+	
+	<!-- Stuff specific to this page -->
+	<script src="./index_files/introduction.js"></script>
+	
+	
+
+
+</body></html>
