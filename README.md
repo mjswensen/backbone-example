@@ -24,4 +24,13 @@ Presentation
 ### Day Two
 
 1. Modularizing the example application using require.js
+  * Dynamically load scripts based on declared dependencies
+  * Anatomy of a module
+  * text plugin usage to load templates
+  * RequireJS Optimizer: combines and minifies modules, Learning Suite usage
+1. Handlebars Helpers
+  * Defines new template syntax
+  * Adding to Learning Suite
 1. Using Backbone in the context of LearningSuite
+  * Role of and reason for LSModel and LSCollection
+  * ajax() support
