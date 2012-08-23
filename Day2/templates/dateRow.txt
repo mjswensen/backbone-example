@@ -1,0 +1,3 @@
+<td class="row-header" id="date_{{date_id}}">
+<span class="td_dateText"><strong>{{day}}</strong> - {{month_date}}</span>
+</td>

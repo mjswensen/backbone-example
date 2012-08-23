@@ -1,4 +1,10 @@
-// lib/handlebars/base.js
+/**
+ * Module wrapper around Handlbars
+ * http://handlebarsjs.com/
+ */
+define(['require'],function(require){
+
+    // lib/handlebars/base.js
 var Handlebars = {};
 
 Handlebars.VERSION = "1.0.beta.6";
@@ -1548,3 +1554,6 @@ Handlebars.VM = {
 
 Handlebars.template = Handlebars.VM.template;
 ;
+
+return Handlebars;
+})
