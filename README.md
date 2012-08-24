@@ -33,4 +33,5 @@ Presentation
   * Adding to Learning Suite
 1. Using Backbone in the context of LearningSuite
   * Role of and reason for LSModel and LSCollection
+  * Backbone.Validation
   * ajax() support
