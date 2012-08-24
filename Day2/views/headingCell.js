@@ -1,4 +1,7 @@
-define(['backbone', 'handlebars', 'text!templates/headingCell.html'], 
+define(['backbone', 
+	'handlebars', 
+	'text!templates/headingCell.html'], // Notice how we've gotten our template.  It is loaded just like a module using the text plugin.
+	
 	function(Backbone, Handlebars, CellTpl){
 
 		var HeadingCell = Backbone.View.extend({
@@ -9,10 +12,13 @@ define(['backbone', 'handlebars', 'text!templates/headingCell.html'],
 			initialize:function(params){
 				this.categories = params.categories;
 				this.categories.on('change:headingId', this.checkCategory, this); // Changes in the model will determine the view state
+				
+				Backbone.Validation.bind(this, {selector:"class"});
 			},
 			events:{
 				'change input:checkbox':'assignCategory',
-				'keyup input:text':'updateTitle'
+				'keyup input:text':'updateTitle',
+				'click .isValid':'isModelValid'
 			},
 			render:function(){
 				// Set the id to reflect the model
@@ -53,12 +59,12 @@ define(['backbone', 'handlebars', 'text!templates/headingCell.html'],
 				}
 			},
 			updateTitle:function(event){
-				// Set returns false if validation fails, so we check it.  Note: the model will not be set with the invalid value!
-				if(!this.model.set('title', $(event.target).val())) {
-					$(event.target).addClass('invalid');
-				} else {			
-					$(event.target).removeClass('invalid');
-				}
+				// Normally, values that fail validation do not get set on the model, Backbone.Validation allows us to still 
+				// set them using the forceUpdate option, so later we can ask the model if it is valid and get an accurate reading.
+				this.model.set({'title': $(event.target).val()}, {forceUpdate: true});
+			},
+			isModelValid: function() {
+				alert(this.model.isValid(true));
 			}
 		});
 

@@ -1,4 +1,7 @@
-define(['backbone', 'views/headingsRow', 'views/dateRow'], 
+define(['backbone', 
+	'views/headingsRow', 
+	'views/dateRow'], 
+	
 	function(Backbone, HeadingsRow, DateRow){
 
 		var CalendarView = Backbone.View.extend({

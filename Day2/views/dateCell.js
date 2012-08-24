@@ -1,4 +1,8 @@
-define(['backbone', 'handlebars', 'text!templates/dateCell.mustache', 'models/calendarItem'], 
+define(['backbone', 
+	'handlebars', 
+	'text!templates/dateCell.mustache', 
+	'models/calendarItem'], 
+	
 	function(Backbone, Handlebars, CellTpl, CalendarItem) {
 	
 		var DateCell = Backbone.View.extend({

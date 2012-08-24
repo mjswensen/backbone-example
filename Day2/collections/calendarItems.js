@@ -1,4 +1,6 @@
-define(['backbone', 'models/calendarItem'], 
+define(['backbone', 
+	'models/calendarItem'], 
+	
 	function(Backbone, CalendarItem){
 
 		var CalendarItems = Backbone.Collection.extend({

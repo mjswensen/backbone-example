@@ -1,10 +1,13 @@
+{{! Model = models/heading }}
 <div class="innerWrapper" style="width: 100%; position: relative; ">
 	<div class="titleWrapper">
-		<input type="text" id="columnHeading" name="columnHeading" placeholder="Column Title" value="{{title}}" class="columnHeadingTitle" size="30" maxlength="30" style="display: inline-block; ">
+		<input type="text" id="columnHeading" name="columnHeading" placeholder="Column Title" value="{{title}}" class="columnHeadingTitle title" size="30" maxlength="30" style="display: inline-block; ">
 	</div>
+	<a class="isValid">Is Valid?</a>
 	<div id="columnCategories" class="form" style="display: block; ">
 		<label>Show Categories:</label>
 		{{#each categories}}
+		{{! Model = models/category}}
 		<label class="checkbox">
 			<input type="checkbox" id="{{heading_order}}uid_{{id}}" name="{{heading_order}}uid_{{id}}">    
 			<label id="{{heading_order}}uid_{{id}}_label" for="{{heading_order}}uid_{{id}}" >{{title}}</label>

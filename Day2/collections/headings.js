@@ -1,4 +1,6 @@
-define(['backbone', 'models/heading'], 
+define(['backbone', 
+	'models/heading'], 
+	
 	function(Backbone, Heading){
 
 		var Headings = Backbone.Collection.extend({

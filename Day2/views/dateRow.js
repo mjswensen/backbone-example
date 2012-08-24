@@ -1,4 +1,9 @@
-define(['backbone', 'handlebars', 'views/dateCell', 'text!templates/dateRow.txt', 'collections/calendarItems'], 
+define(['backbone', 
+	'handlebars', 
+	'views/dateCell', 
+	'text!templates/dateRow.txt', 
+	'collections/calendarItems'], 
+	
 	function(Backbone, Handlebars, DateCell, RowTpl, CalendarItems) {
 
 		var DateRow = Backbone.View.extend({

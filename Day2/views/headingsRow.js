@@ -1,4 +1,6 @@
-define(['backbone', 'views/headingCell'], 
+define(['backbone', 
+	'views/headingCell'], 
+
 	function(Backbone, HeadingCell){
 
 		var HeadingsRow = Backbone.View.extend({
@@ -18,5 +20,4 @@ define(['backbone', 'views/headingCell'],
 		});
 
 		return HeadingsRow;
-
 });

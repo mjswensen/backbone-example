@@ -98,6 +98,7 @@ var HeadingCell = Backbone.View.extend({
 				+'<input type="text" id="columnHeading" name="columnHeading" placeholder="Column Title" '
 					+'value="{{title}}" class="columnHeadingTitle" size="30" maxlength="30" style="display: inline-block; ">'
 			+'</div>'
+			+'<a class="isValid">Is Valid?</a>'
 			+'<div id="columnCategories" class="form" style="display: block; ">'
 				+'<label>Show Categories:</label>'  
 				+'{{#each categories}}'
@@ -115,7 +116,8 @@ var HeadingCell = Backbone.View.extend({
 	},
 	events:{
 		'change input:checkbox':'assignCategory',
-		'keyup input:text':'updateTitle'
+		'keyup input:text':'updateTitle',
+		'click .isValid':'isModelValid'
 	},
 	render:function(){
 		// Set the id to reflect the model
@@ -162,6 +164,9 @@ var HeadingCell = Backbone.View.extend({
 		} else {			
 			$(event.target).removeClass('invalid');
 		}
+	},
+	isModelValid: function() {
+		alert(this.model.isValid());
 	}
 });
 

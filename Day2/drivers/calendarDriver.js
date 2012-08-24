@@ -1,4 +1,10 @@
-define(['collections/headings', 'collections/categories', 'collections/calendarItems', 'views/calendarView'], 
+/** A driver can provide an abstraction for complex module relationships and, 
+when created as an entry point for a page, can serve as an optimization target.*/
+define(['collections/headings', 
+	'collections/categories', 
+	'collections/calendarItems', 
+	'views/calendarView'], 
+	
 	function(Headings, Categories, CalendarItems, CalendarView) {
 
 		// hard coded data
@@ -62,7 +68,9 @@ define(['collections/headings', 'collections/categories', 'collections/calendarI
 		});
 		console.log(calendarItemsCollection);
 		
+		// Return a simple API for whoever uses this driver
 		return {
+			/** Initialize our app */
 			init : function(){	
 				(new CalendarView({headings:headingsCollection, calendarItems:calendarItemsCollection, categories:categoriesCollection})).render();
 			}
