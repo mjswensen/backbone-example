@@ -1555,5 +1555,28 @@ Handlebars.VM = {
 Handlebars.template = Handlebars.VM.template;
 ;
 
+// Format a date string or ISO timestamp using Date.js
+// Formatters - http://code.google.com/p/datejs/wiki/FormatSpecifiers
+// usage: {{dateFormat creation_date format="MMM d, yyyy"}}
+// based on code from: https://gist.github.com/1468937
+Handlebars.registerHelper('dateFormat', function(context, block) {
+	if (Date.today) { // Check that Date.js is available
+		var f = block.hash.format || "MMM d, yyyy";
+		var date = new Date();
+		if(context instanceof Date) {
+			date = context;
+		} else if( isNaN(context) ) {
+			// Not a timestamp, so probably a date string
+			date = Date.parse(context);
+		} else {
+			// Must be a timestamp
+			date.setTime(context);
+		}
+		return date.toString(f);
+	}else{
+		return context;   //  Date.js plugin not available. return data as is.
+	}
+});
+
 return Handlebars;
 })

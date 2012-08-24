@@ -15,13 +15,7 @@ define(['backbone', 'handlebars', 'views/dateCell', 'text!templates/dateRow.txt'
 				this.$el.attr('id', this.$el.attr('id')+this.date.toString("yyyy-MM-dd"));
 			},
 			render:function(){				
-				var data = {
-					date_id:this.date.toString("yyyy-MM-dd"),
-					day:this.date.toString("ddd"),
-					month_date:this.date.toString("MMM dd")
-				}
-				
-				this.$el.append(this.template(data));
+				this.$el.append(this.template({date:this.date}));
 				
 				var view = this;
 				this.headings.forEach(function(model){
